@@ -1,0 +1,9 @@
+pandas
+numpy
+statsmodels
+matplotlib
+geopandas
+pyproj
+shapely
+country_converter
+pycountry

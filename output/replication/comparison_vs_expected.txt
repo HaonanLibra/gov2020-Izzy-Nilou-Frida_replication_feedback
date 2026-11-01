@@ -1,0 +1,8 @@
+results_baseline_instability.csv              max abs diff 5.40e-14
+results_fig5_destination_type.csv             max abs diff 4.65e-13
+results_main_coefficients.csv                 max abs diff 1.08e-14
+results_marginal_effects.csv                  max abs diff 7.00e-16
+results_remit_main_coefficients.csv           max abs diff 9.77e-15
+results_remit_marginal_effects.csv            max abs diff 5.00e-16
+results_remit_robustness.csv                  max abs diff 1.64e-13
+results_robustness_interaction.csv            max abs diff 2.60e-13

@@ -1,0 +1,238 @@
+
+====================================================================================================
+Building telecom panel (replication file + WDI/ITU + UN TII)
+====================================================================================================
+255 not found in GWcode
+265 not found in GWcode
+316 not found in GWcode
+342 not found in GWcode
+345 not found in GWcode
+348 not found in GWcode
+364 not found in GWcode
+529 not found in GWcode
+678 not found in GWcode
+679 not found in GWcode
+769 not found in GWcode
+816 not found in GWcode
+818 not found in GWcode
+normalisation caps (99th pct): {'fixed': np.float64(72.6), 'mobile': np.float64(136.3), 'internet': np.float64(78.0)}
+
+Validation: WDI-based ICT index vs UN TII (cross-country)
+  2003: n=190  Pearson r=0.833  Spearman rho=0.961
+  2012: n=190  Pearson r=0.868  Spearman rho=0.973
+  2024: n=136  Pearson r=0.847  Spearman rho=0.748
+
+Panel: 7389 country-years, 176 countries; autocracy 1981-2005: 2160 rows, ict_index non-missing: 2063
+              count   mean    std    min    25%    50%    75%    max
+year                                                                
+(1980, 1990]  915.0  0.071  0.069  0.001  0.018  0.040  0.109  0.345
+(1990, 2000]  788.0  0.131  0.138  0.003  0.029  0.084  0.178  0.864
+(2000, 2005]  360.0  0.311  0.221  0.019  0.127  0.246  0.460  0.923
+[done in 2s]
+
+====================================================================================================
+Building public-data panel (V-Dem + WDI + remittances)
+====================================================================================================
+Panel rows: 8740 | autocracy-years 1981-2010 (V-Dem RoW <=1): 2966
+non-missing by variable:
+ diaspora_dem     2578
+diaspora_size    2590
+logremit         1798
+lgdppc           2689
+growth           2673
+lpop             2869
+urban            2878
+trade            2194
+oilrents         2878
+aid              2449
+v2x_polyarchy    2966
+regdem           2878
+d5_vdem          2957
+d5_polity        2642
+complete cases (d5_vdem): 1387 | (d5_polity): 1379
+remittances % GDP p10/p50/p90: [0.05, 1.09, 10.3]
+[done in 1s]
+
+====================================================================================================
+Figure 1: connectivity maps (UN TII)
+====================================================================================================
+unmatched:      year            country
+129  2003  Georgia (Country)
+129  2012  Georgia (Country)
+129  2024  Georgia (Country)
+      count      mean       std  min      25%      50%      75%      max
+year                                                                    
+2003  193.0  0.175325  0.217431  0.0  0.02243  0.07409  0.24364  0.84563
+2012  193.0  0.324529  0.253215  0.0  0.11017  0.26376  0.50062  1.00000
+2024  193.0  0.689564  0.272741  0.0  0.48355  0.78511  0.91707  1.00000
+NaN tii: {2003: 0, 2012: 0, 2024: 0}
+zeros per year: {2003: 4, 2012: 1, 2024: 1} | maxes: {2003: 0.846, 2012: 1.0, 2024: 1.0}
+     year                   country
+35   2003                Montenegro
+65   2003                     Palau
+161  2003               Timor-Leste
+179  2003               South Sudan
+45   2012                   Myanmar
+106  2024  Central African Republic
+2003 share>=0.6: 0.09 share<0.2: 0.7 median: 0.077
+2012 share>=0.6: 0.19 share<0.2: 0.42 median: 0.264
+2024 share>=0.6: 0.66 share<0.2: 0.08 median: 0.785
+[done in 2s]
+
+====================================================================================================
+Figure 2: diaspora democracy and autocratic instability
+====================================================================================================
+EFFECT OF +1 SD DIASPORA DEMOCRACY ON INSTABILITY   coef (clustered SE)   * p<.10 ** p<.05 *** p<.01
+outcome                             firreg5_c_1     frfailure5_1         abs5_vdem       abs5_polity
+spec                                                                                                
+1. Year FE + diaspora size        0.034 (0.028)  0.062** (0.027)  0.022*** (0.005)  0.033*** (0.009)
+2. + wealth, growth, population   0.033 (0.028)  0.064** (0.026)  0.023*** (0.006)  0.033*** (0.009)
+3. + full controls (main)         0.006 (0.026)    0.025 (0.026)   0.014** (0.007)   0.026** (0.012)
+4. Country + year FE             -0.010 (0.057)    0.023 (0.061)    -0.012 (0.012)     0.002 (0.020)
+5. Logit AME (full controls)      0.012 (0.025)    0.035 (0.025)               NaN               NaN
+6. Observed WB-stock diaspora    -0.025 (0.028)   -0.007 (0.025)    -0.001 (0.007)     0.009 (0.011)
+7. Large-diaspora subsample       0.021 (0.037)   -0.028 (0.034)   0.015** (0.007)     0.018 (0.013)
+8. 1990 onward                   -0.031 (0.025)    0.011 (0.031)   0.014** (0.006)    0.021* (0.011)
+
+Main-spec N / clusters / outcome mean:
+     outcome    N  clusters  mean_y
+ firreg5_c_1 1864       110   0.256
+frfailure5_1 1828       108   0.222
+   abs5_vdem 1880       106   0.077
+ abs5_polity 1844       105   0.123
+
+Sig. at p<.05: 10 of 30 | p<.10: 11
+outcome
+abs5_polity     7/7 positive
+abs5_vdem       5/7 positive
+firreg5_c_1     5/8 positive
+frfailure5_1    6/8 positive
+[done in 2s]
+
+====================================================================================================
+Figure 3: moderation by telecommunications capacity
+====================================================================================================
+
+MAIN MODELS (coef (clustered SE)); D and T are z-scored; controls + year FE suppressed
+outcome                              d5pol_s_1          f5bmr_1       firreg5_c_1    frfailure5_1
+term                                                                                             
+Diaspora democracy (D, +1 SD)  0.032** (0.013)  0.044** (0.018)     0.010 (0.027)   0.032 (0.026)
+Telecom capacity (T, +1 SD)     -0.000 (0.017)    0.031 (0.027)     0.054 (0.036)   0.039 (0.028)
+D x T                           -0.006 (0.008)    0.008 (0.015)    -0.023 (0.020)  -0.007 (0.016)
+Log GDP per capita (W)           0.002 (0.020)    0.039 (0.029)  -0.082** (0.033)  -0.062 (0.047)
+D x W                            0.005 (0.012)   -0.017 (0.017)     0.004 (0.026)  -0.028 (0.024)
+N: {'d5pol_s_1': 1779, 'f5bmr_1': 1704, 'firreg5_c_1': 1813, 'frfailure5_1': 1781}  countries: {'d5pol_s_1': 107, 'f5bmr_1': 107, 'firreg5_c_1': 108, 'frfailure5_1': 106}
+
+MARGINAL EFFECT of +1 SD diaspora democracy (SD = 0.228 on 0-1 scale) at telecom percentiles
+     outcome telecom_level  ict_index     me    se     lo    hi
+   d5pol_s_1      10th pct      0.014  0.037 0.014  0.009 0.065
+   d5pol_s_1        median      0.082  0.034 0.013  0.009 0.060
+   d5pol_s_1      90th pct      0.332  0.024 0.016 -0.007 0.055
+     f5bmr_1      10th pct      0.014  0.038 0.022 -0.006 0.082
+     f5bmr_1        median      0.082  0.041 0.019  0.004 0.079
+     f5bmr_1      90th pct      0.332  0.054 0.025  0.005 0.103
+ firreg5_c_1      10th pct      0.014  0.027 0.033 -0.038 0.093
+ firreg5_c_1        median      0.082  0.017 0.029 -0.040 0.075
+ firreg5_c_1      90th pct      0.332 -0.019 0.034 -0.085 0.047
+frfailure5_1      10th pct      0.014  0.037 0.028 -0.019 0.093
+frfailure5_1        median      0.082  0.034 0.026 -0.017 0.086
+frfailure5_1      90th pct      0.332  0.024 0.033 -0.041 0.089
+
+ROBUSTNESS: coefficient on D x T (both z-scored)   * p<.10  ** p<.05  *** p<.01
+outcome                           d5pol_s_1 f5bmr_1 firreg5_c_1 frfailure5_1
+spec                                                                        
+1. Main (controls + D x W)           -0.006   0.008      -0.023       -0.007
+2. No D x W term                     -0.004  -0.001      -0.021       -0.022
+3. Wealth + diaspora size only       -0.009   0.005      -0.027       -0.016
+4. Country + year FE                  0.001   0.025       0.003        0.009
+5. T = internet users (log)          -0.006  -0.002      -0.012       -0.009
+6. T = mobile subscriptions (log)    -0.004   0.010      -0.011        0.001
+7. T = fixed phone lines (log)       -0.007   0.013      -0.048       -0.012
+8. D = observed WB-stock diaspora  -0.023**  -0.013       0.006       -0.003
+9. 1990-2005 only                    -0.006   0.020       0.004        0.003
+
+Path-a check (T_z on D_z, same controls + year FE): coef=-0.082, se=0.034, p=0.016, N=1813
+
+Saved figure.
+[done in 3s]
+
+====================================================================================================
+Figure 4: moderation by remittance inflows
+====================================================================================================
+MAIN MODELS (V-Dem autocracies, 1981-2010; D, T z-scored)
+outcome                                      d5_vdem       d5_polity       abs5_vdem      abs5_polity
+term                                                                                                 
+Diaspora democracy (D, +1 SD)          0.014 (0.009)  0.024* (0.014)  0.014* (0.008)  0.029** (0.014)
+Remittances (T, +1 SD of log % GDP)   -0.001 (0.009)   0.007 (0.011)  -0.001 (0.008)    0.002 (0.011)
+D x T                                 -0.004 (0.009)  -0.006 (0.010)  -0.001 (0.007)   -0.004 (0.009)
+Log GDP per capita (W)               0.025** (0.011)  0.030* (0.017)  0.020* (0.011)   0.035* (0.018)
+D x W                                  0.005 (0.008)  -0.002 (0.012)   0.004 (0.009)   -0.001 (0.013)
+p(D x T): {'d5_vdem': 0.637, 'd5_polity': 0.527, 'abs5_vdem': 0.904, 'abs5_polity': 0.641}
+N: {'d5_vdem': 1387, 'd5_polity': 1379, 'abs5_vdem': 1387, 'abs5_polity': 1379} | countries: {'d5_vdem': 97, 'd5_polity': 96, 'abs5_vdem': 97, 'abs5_polity': 96}
+remittances % GDP p10/p50/p90: [np.float64(0.05), np.float64(1.09), np.float64(10.3)] | SD of D (0-1 scale): 0.232
+
+MARGINAL EFFECT of +1 SD diaspora democracy at remittance percentiles
+    outcome remittance_level  remit_pct_gdp    me    se     lo    hi
+    d5_vdem         10th pct           0.05 0.018 0.013 -0.007 0.043
+    d5_vdem           median           1.09 0.015 0.009 -0.003 0.033
+    d5_vdem         90th pct          10.30 0.008 0.014 -0.020 0.037
+  d5_polity         10th pct           0.05 0.030 0.018 -0.005 0.065
+  d5_polity           median           1.09 0.026 0.014 -0.003 0.054
+  d5_polity         90th pct          10.30 0.015 0.019 -0.023 0.053
+  abs5_vdem         10th pct           0.05 0.015 0.012 -0.008 0.038
+  abs5_vdem           median           1.09 0.014 0.009 -0.003 0.032
+  abs5_vdem         90th pct          10.30 0.013 0.012 -0.010 0.036
+abs5_polity         10th pct           0.05 0.033 0.016  0.001 0.064
+abs5_polity           median           1.09 0.030 0.014  0.003 0.057
+abs5_polity         90th pct          10.30 0.023 0.019 -0.015 0.060
+
+ROBUSTNESS: coefficient on D x T   * p<.10  ** p<.05  *** p<.01
+outcome                                  d5_vdem d5_polity abs5_vdem abs5_polity
+spec                                                                            
+1. Main                                   -0.004    -0.006    -0.001      -0.004
+2. No D x W term                          -0.005    -0.006    -0.001      -0.004
+3. Remittances in levels (% GDP)           0.007    -0.009     0.010      -0.003
+4. Remittances lagged 2 yrs               -0.004    -0.007    -0.003      -0.008
+4b. T = log remittances per capita (US$)  -0.004    -0.004    -0.002      -0.006
+5. Country + year FE                      -0.011    -0.002    -0.006      -0.014
+6. Window 1996-2010                        0.000     0.004     0.000       0.001
+6b. Add D x diaspora size                 -0.005    -0.009    -0.002      -0.006
+7. Autocracy = Polity2 <= 5               -0.009    -0.008    -0.002      -0.000
+cells p<.10: 0 of 36 | p<.05: 0
+
+Saved figure.
+[done in 3s]
+
+====================================================================================================
+Figure 5: diaspora by destination type
+====================================================================================================
+  dyadic file not found -> using cached data/diaspora_type_shares.csv
+                         spec outcome dest_type  effect_quarter_shift      lo      hi     p  coef_full_shift  mean_share    N  countries
+autocracies + controls (main)    dpol        RD                 0.140  -0.482   0.762 0.659            0.561       0.180 1817        109
+autocracies + controls (main)    dpol        PD                 0.742   0.340   1.144 0.000            2.967       0.160 1817        109
+autocracies + controls (main)    dpol        RA                -0.205  -0.774   0.363 0.478           -0.822       0.098 1817        109
+autocracies + controls (main)    drem        RD                -8.635 -22.052   7.091 0.265           -0.361       0.190 1104         83
+autocracies + controls (main)    drem        PD                -7.633 -19.216   5.611 0.245           -0.318       0.190 1104         83
+autocracies + controls (main)    drem        RA                -6.898 -26.313  17.631 0.549           -0.286       0.057 1104         83
+     autocracies, no controls    dpol        RD                 0.404  -0.110   0.919 0.124            1.618       0.193 2078        127
+     autocracies, no controls    dpol        PD                 0.826   0.402   1.250 0.000            3.305       0.157 2078        127
+     autocracies, no controls    dpol        RA                -0.262  -0.559   0.034 0.083           -1.050       0.093 2078        127
+     autocracies, no controls    drem        RD               -12.298 -22.619  -0.601 0.040           -0.525       0.207 1207         94
+     autocracies, no controls    drem        PD                 1.422 -11.142  15.763 0.834            0.056       0.182 1207         94
+     autocracies, no controls    drem        RA               -21.789 -31.758 -10.364 0.000           -0.983       0.056 1207         94
+     all countries + controls    dpol        RD                 0.315  -0.033   0.663 0.076            1.261       0.284 3261        149
+     all countries + controls    dpol        PD                 0.409   0.161   0.656 0.001            1.634       0.224 3261        149
+     all countries + controls    dpol        RA                -0.344  -0.857   0.170 0.190           -1.375       0.065 3261        149
+     all countries + controls    drem        RD                -3.377 -14.131   8.724 0.568           -0.137       0.309 2378        132
+     all countries + controls    drem        PD                 5.384  -3.675  15.295 0.253            0.210       0.256 2378        132
+     all countries + controls    drem        RA                 3.202 -13.556  23.209 0.727            0.126       0.039 2378        132
+[done in 1s]
+
+Figures written to /home/claude/codefix/figures
+   fig1a_connectivity_map_TII.png
+   fig1b_connectivity_map_TII_quintiles.png
+   fig2_diaspora_democracy_instability_coefficients.png
+   fig3_telecom_moderation_marginal_effects.png
+   fig4_remittance_moderation_marginal_effects.png
+   fig5_diaspora_destination_type.png
+Total 14s

@@ -1,0 +1,77 @@
+==========================================================================================
+T1  Which direction drives |5-yr change|?  (fig2 main spec, V-Dem autocracies 1981-2010)
+  abs5_vdem        coef=+0.0136*   se=0.0070  N=1876  mean=0.076
+  d5_vdem          coef=+0.0151**  se=0.0073  N=1876  mean=0.054
+  up5_vdem         coef=+0.0143**  se=0.0070  N=1876  mean=0.065
+  down5_vdem       coef=-0.0008    se=0.0015  N=1876  mean=0.011
+  bigup_vdem       coef=+0.0410*   se=0.0228  N=1876  mean=0.215
+  bigdown_vdem     coef=+0.0023    se=0.0076  N=1876  mean=0.033
+  abs5_polity      coef=+0.0262**  se=0.0115  N=1843  mean=0.123
+  d5_polity        coef=+0.0262**  se=0.0122  N=1843  mean=0.074
+  up5_polity       coef=+0.0262**  se=0.0110  N=1843  mean=0.098
+  down5_polity     coef=+0.0000    se=0.0044  N=1843  mean=0.024
+  bigup_polity     coef=+0.0312    se=0.0258  N=1843  mean=0.231
+  bigdown_polity   coef=+0.0112    se=0.0103  N=1843  mean=0.055
+==========================================================================================
+T2  Placebo: diaspora democracy at t vs the change that ALREADY happened (t-5 -> t)
+    (controls that are themselves measured at t, e.g. current democracy, are dropped for the placebo)
+  d5_vdem    (future) coef=+0.0091    se=0.0067 N=1876
+  b5_vdem    (PAST  ) coef=-0.0010    se=0.0045 N=1851
+  d5_polity  (future) coef=+0.0153    se=0.0108 N=1843
+  b5_polity  (PAST  ) coef=+0.0057    se=0.0073 N=1805
+  d5pol_s_1  (future) coef=+0.0252**  se=0.0115 N=1817   [replication file]
+  b5pol_s    (PAST  ) coef=+0.0002    se=0.0077 N=1816   [replication file]
+==========================================================================================
+T3  Leave-one-region-out / leave-one-country-out (fig2 main spec)
+  frfailure5_1  drop eas                          coef=+0.0200    (full: +0.0251)
+  frfailure5_1  drop ecs                          coef=+0.0245    (full: +0.0251)
+  frfailure5_1  drop lcn                          coef=+0.0115    (full: +0.0251)
+  frfailure5_1  drop mea                          coef=+0.0347    (full: +0.0251)
+  frfailure5_1  drop sas                          coef=+0.0186    (full: +0.0251)
+  frfailure5_1  drop ssf                          coef=+0.0222    (full: +0.0251)
+  frfailure5_1  leave-one-country-out: coef range [+0.0165, +0.0352], share p<.05 = 0.00, share p<.10 = 0.00; most influential: [516, 41, 703]
+  abs5_vdem     drop eas                          coef=+0.0125*   (full: +0.0136)
+  abs5_vdem     drop ecs                          coef=+0.0106    (full: +0.0136)
+  abs5_vdem     drop lcn                          coef=+0.0110*   (full: +0.0136)
+  abs5_vdem     drop mea                          coef=+0.0098    (full: +0.0136)
+  abs5_vdem     drop sas                          coef=+0.0126*   (full: +0.0136)
+  abs5_vdem     drop ssf                          coef=+0.0134    (full: +0.0136)
+  abs5_vdem     leave-one-country-out: coef range [+0.0110, +0.0167], share p<.05 = 0.17, share p<.10 = 0.99; most influential: ['CUB', 'CHL', 'ARG']
+  abs5_polity   drop eas                          coef=+0.0260**  (full: +0.0262)
+  abs5_polity   drop ecs                          coef=+0.0296**  (full: +0.0262)
+  abs5_polity   drop lcn                          coef=+0.0191*   (full: +0.0262)
+  abs5_polity   drop mea                          coef=+0.0183    (full: +0.0262)
+  abs5_polity   drop sas                          coef=+0.0254**  (full: +0.0262)
+  abs5_polity   drop ssf                          coef=+0.0293**  (full: +0.0262)
+  abs5_polity   leave-one-country-out: coef range [+0.0214, +0.0303], share p<.05 = 1.00, share p<.10 = 1.00; most influential: ['PAK', 'CUB', 'MAR']
+  d5pol_s_1     drop eas                          coef=+0.0292**  (full: +0.0324)
+  d5pol_s_1     drop ecs                          coef=+0.0238**  (full: +0.0324)
+  d5pol_s_1     drop lcn                          coef=+0.0277**  (full: +0.0324)
+  d5pol_s_1     drop mea                          coef=+0.0423*** (full: +0.0324)
+  d5pol_s_1     drop sas                          coef=+0.0295**  (full: +0.0324)
+  d5pol_s_1     drop ssf                          coef=+0.0309**  (full: +0.0324)
+  d5pol_s_1     leave-one-country-out: coef range [+0.0277, +0.0376], share p<.05 = 1.00, share p<.10 = 1.00; most influential: [600, 710, 731]
+==========================================================================================
+T4  Telecom moderation: what the null rules out, and a within-year telecom measure
+  d5pol_s_1     ICT index (authors)      DxT=-0.0063    95% CI [-0.0225, +0.0099]  | D at mean T = +0.0320  -> CI upper bound = 31% of D per SD of T
+  d5pol_s_1     within-year percentile   DxT=-0.0179    95% CI [-0.0540, +0.0182]  | D at mean T = +0.0294  -> CI upper bound = 62% of D per SD of T
+  f5bmr_1       ICT index (authors)      DxT=+0.0079    95% CI [-0.0217, +0.0376]  | D at mean T = +0.0441  -> CI upper bound = 85% of D per SD of T
+  f5bmr_1       within-year percentile   DxT=+0.0094    95% CI [-0.0487, +0.0676]  | D at mean T = +0.0385  -> CI upper bound = 176% of D per SD of T
+  firreg5_c_1   ICT index (authors)      DxT=-0.0230    95% CI [-0.0618, +0.0158]  | D at mean T = +0.0097  -> CI upper bound = 164% of D per SD of T
+  firreg5_c_1   within-year percentile   DxT=+0.0252    95% CI [-0.0596, +0.1101]  | D at mean T = +0.0026  -> CI upper bound = 4235% of D per SD of T
+  frfailure5_1  ICT index (authors)      DxT=-0.0066    95% CI [-0.0387, +0.0256]  | D at mean T = +0.0321  -> CI upper bound = 80% of D per SD of T
+  frfailure5_1  within-year percentile   DxT=+0.0186    95% CI [-0.0644, +0.1015]  | D at mean T = +0.0275  -> CI upper bound = 369% of D per SD of T
+==========================================================================================
+T5  Destination type: Wealth vs Democracy hypotheses, formally
+                               spec    N  RD (1/4 shift)  p_RD  PD (1/4 shift)  p_PD  RA (1/4 shift)  p_RA  p(PD = RD)  p(RD = RA)  [democracy, holding wealth]  p(RD = PD)  [wealth, holding democracy]
+                      authors' main 1817           0.140 0.659           0.742 0.000          -0.205 0.478       0.118                                    0.310                                    0.118
++ neighbour democracy (nbrpolity_1) 1782          -0.075 0.829           0.386 0.110          -0.061 0.818       0.272                                    0.965                                    0.272
+                       + country FE 1817          -2.490 0.016           0.136 0.684           0.080 0.887       0.011                                    0.019                                    0.011
+                           drop eas 1587           0.229 0.518           0.724 0.002           0.041 0.888       0.257                                    0.638                                    0.257
+                           drop ecs 1628           0.192 0.500           0.583 0.006          -0.357 0.172       0.269                                    0.058                                    0.269
+                           drop lcn 1668           0.154 0.672           0.502 0.047          -0.243 0.381       0.417                                    0.275                                    0.417
+                           drop mea 1420           0.694 0.264           0.824 0.000           0.569 0.295       0.842                                    0.870                                    0.842
+                           drop sas 1764           0.126 0.694           0.716 0.002          -0.191 0.509       0.150                                    0.349                                    0.150
+                           drop ssf 1026           0.090 0.762           0.820 0.005          -0.121 0.695       0.075                                    0.542                                    0.075
+
+Wrote /home/claude/repo/output/stress_tests/stress_tests_results.csv
